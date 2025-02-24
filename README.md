@@ -24,14 +24,14 @@ from dagnosis.dag_learner.extractor import GroundTruthDAG
 
 significance = 0.1 # Control the FWER
 
-X_train, X_test = ... #Data (numpy arrays)
+X_train, X_test = ... # Data (numpy arrays)
 
 list_features = ... # List of features for which we want to use the conformal estimators
 
-conf_predictor_dict = ... #Define the DictConfig object for the conformal predictors 
+conf_predictor_dict = ... # Define the DictConfig object for the conformal predictors 
 conformal_evaluator =  ConformalEvaluator(conf_predictor_cfg=conf_predictor_cfg)
 
-# Define a structure based representation mapper
+# Define a structure-based representation mapper
 dag = ... #Define the DAG
 dag_representation = DAGRepresentationMapper()
 dag_representation.set_dag(dag)
@@ -43,7 +43,6 @@ alphas_adjusted = significance_corrector.compute_correction(significance=signifi
 
 #Train 
 conformal_evaluator.train(X_train = X_train, representation_mapper=dag_representation, list_features=list_features, alphas_adjusted=alphas_adjusted)
-
 
 # Test 
 conf_dict = conformal_evaluator.predict(X_test list_features=list_features)
@@ -57,7 +56,7 @@ The bash scripts located in the folder `scripts` contain the bash scripts `run_l
 
 Once the pipeline has finished running, you can compute the inconsistency detection metrics (F1, Precision, Recall), by going to the folder `experiments/synthetic` and running:
 ```shell
-python compute_metrics.py PATH_SAVE_METRIC=path_metrics
+python parse_metrics.py PATH_SAVE_METRIC=path_metrics
 ```
 where `path_metrics` denotes the folder where the metrics are saved.
 
