@@ -1,6 +1,9 @@
 # DAGnosis: Localized Identification of Data Inconsistencies using Structures
 
+
+![Pipeline](assets/pipeline.PNG)
 This repository accompanies the AISTATS'24 paper: [DAGnosis: Localized Identification of Data Inconsistencies using Structures](https://arxiv.org/abs/2402.17599).
+
 
 # 1. Install
 We suggest creating a new environment with conda (with `Python 3.10` or newer) after cloning the repo, e.g. with:
