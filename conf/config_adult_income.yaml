@@ -1,0 +1,59 @@
+name_experiment: "adult_income"
+random_seed: 42
+
+n_repeats: 5
+n_iterations: 10
+significance: 0.1
+cal_train_ratio: 0.2
+conf_predictor_cfg: ${conformal_predictor}
+sex_feature_index: 9
+
+datamodule: 
+  _target_: dagnosis.data.datamodule.AdultIncome
+  test_size: 0.5
+  seed: ${random_seed} 
+
+
+pipelines:
+  gt:
+    _target_: dagnosis.dcai.conformal_pipeline.DAGBasedConformalPipeline
+    dag_extractor:
+      _target_: dagnosis.dag_learner.extractor.AdultIncomeGtDAG
+    conformal_evaluator:
+      _target_: dagnosis.conformal.conformal_evaluator.ConformalEvaluator
+      _partial_: True
+    representation_mapper:
+      _target_: dagnosis.representation.representation_mapper.DAGRepresentationMapper
+    significance_correction:
+      _target_: dagnosis.conformal.significance_correction.BonferroniCorrection
+
+  pc:
+    _target_: dagnosis.dcai.conformal_pipeline.DAGBasedConformalPipeline
+    dag_extractor:
+      _target_: dagnosis.dag_learner.extractor.AdultIncomePcDAG
+    conformal_evaluator:
+      _target_: dagnosis.conformal.conformal_evaluator.ConformalEvaluator
+      _partial_: True
+    representation_mapper:
+      _target_: dagnosis.representation.representation_mapper.DAGRepresentationMapper
+    significance_correction:
+      _target_: dagnosis.conformal.significance_correction.BonferroniCorrection
+    
+
+  pca:
+    _target_: dagnosis.dcai.conformal_pipeline.PCABasedConformalPipeline
+    conformal_evaluator:
+      _target_: dagnosis.conformal.conformal_evaluator.ConformalEvaluator
+      _partial_: True
+    representation_mapper:
+      _target_: dagnosis.representation.representation_mapper.PCARepresentationMapper
+      n_components: 8
+      random_state: 0
+    significance_correction:
+      _target_: dagnosis.conformal.significance_correction.BonferroniCorrection
+
+
+defaults:
+  - _self_
+  - conformal_predictor: CQR
+  

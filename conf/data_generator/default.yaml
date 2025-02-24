@@ -1,0 +1,4 @@
+_target_: dagnosis.data.data_generator.DataGenerator
+sem_type: ${sem_type}
+graph_type: ${graph_type}
+save_path: ${PATH_SAVE_DATA}

@@ -1,0 +1,86 @@
+name_experiment: "test"
+random_seed: 42
+dimension: 20
+n_train: 1000
+n_test: 10000
+n_samples_test_corrupted: 10000
+n_nodes_corrupted: 2
+
+n_repetitions: 20
+n_runs_test: 1
+sem_type: "linear"
+graph_type: "ER"
+sparsity_levels: [10]
+significance: 0.1
+cal_train_ratio: 0.2
+corruption_type: 'gaussian_noise'
+
+PATH_SAVE_DATA: "artifacts/${name_experiment}/data/"
+PATH_SAVE_CP: "artifacts/${name_experiment}/cp/"
+PATH_SAVE_CONFDICT: "artifacts/${name_experiment}/confdict/"
+PATH_SAVE_METRIC: "artifacts/${name_experiment}/metric/"
+PATH_SAVE_PARSE_METRIC: "artifacts/${name_experiment}/parse_metric/"
+
+conf_predictor_cfg: ${conformal_predictor}
+
+
+pipelines:
+  gt:
+    _target_: dagnosis.dcai.conformal_pipeline.DAGBasedConformalPipeline
+    dag_extractor:
+      _target_: dagnosis.dag_learner.extractor.GroundTruthDAG
+    conformal_evaluator:
+      _target_: dagnosis.conformal.conformal_evaluator.ConformalEvaluator
+      _partial_: True
+    representation_mapper:
+      _target_: dagnosis.representation.representation_mapper.DAGRepresentationMapper
+    significance_correction:
+      _target_: dagnosis.conformal.significance_correction.BonferroniCorrection
+
+
+
+
+  auto:
+    _target_: dagnosis.dcai.conformal_pipeline.DAGBasedConformalPipeline
+    dag_extractor:
+      _target_: dagnosis.dag_learner.extractor.AutoregressiveDAG
+    conformal_evaluator:
+      _target_: dagnosis.conformal.conformal_evaluator.ConformalEvaluator
+      _partial_: True
+    representation_mapper:
+      _target_: dagnosis.representation.representation_mapper.DAGRepresentationMapper
+    significance_correction:
+      _target_: dagnosis.conformal.significance_correction.BonferroniCorrection
+    
+
+
+  notears:
+    _target_: dagnosis.dcai.conformal_pipeline.DAGBasedConformalPipeline
+    dag_extractor:
+      _target_: dagnosis.dag_learner.extractor.NotearsLinearDAG
+    conformal_evaluator:
+      _target_: dagnosis.conformal.conformal_evaluator.ConformalEvaluator
+      _partial_: True
+    representation_mapper:
+      _target_: dagnosis.representation.representation_mapper.DAGRepresentationMapper
+    significance_correction:
+      _target_: dagnosis.conformal.significance_correction.BonferroniCorrection
+    
+  pca:
+    _target_: dagnosis.dcai.conformal_pipeline.PCABasedConformalPipeline
+    conformal_evaluator:
+      _target_: dagnosis.conformal.conformal_evaluator.ConformalEvaluator
+      _partial_: True
+    representation_mapper:
+      _target_: dagnosis.representation.representation_mapper.PCARepresentationMapper
+      compression_factor: 0.5
+      random_state: 0
+    significance_correction:
+      _target_: dagnosis.conformal.significance_correction.BonferroniCorrection
+
+
+defaults:
+  - _self_
+  - data_generator: default
+  - conformal_predictor: CQR
+  
