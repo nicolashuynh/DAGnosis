@@ -1,11 +1,12 @@
 # DAGnosis: Localized Identification of Data Inconsistencies using Structures
 
+
+![Pipeline](assets/pipeline.PNG)
 <p align="center">
     <a href="https://github.com/nicolashuynh/DAGnosis/actions/workflows/python-app.yml/badge.svg"><img alt="Build" src="https://github.com/nicolashuynh/DAGnosis/actions/workflows/python-app.yml/badge.svg"></a>
     <a href="https://github.com/nicolashuynh/DAGnosis/blob/main/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/nicolashuynh/DAGnosis.svg?color=blue"></a>
 </p>
 
-![Pipeline](assets/pipeline.PNG)
 This repository accompanies the AISTATS'24 paper: [DAGnosis: Localized Identification of Data Inconsistencies using Structures](https://arxiv.org/abs/2402.17599).
 
 
