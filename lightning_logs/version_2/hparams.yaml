@@ -1,9 +1,0 @@
-h_tol: 0.01
-rho_max: 10000000000.0
-w_threshold: 0.3
-'n': 150
-s: 6
-K: 1
-dag_type: ER
-dim: 5
-save_hyperparams: true

@@ -50,6 +50,7 @@ conf_dict = conformal_evaluator.predict(X_test list_features=list_features)
 ```
 
 
+
 ### Synthetic experiments
 The folder `experiments/synthetic` contains the files for the synthetic experiments.
 The bash scripts located in the folder `scripts` contain the bash scripts `run_linear.sh` and `run_mlp.sh` which run the full pipeline: 1) generate the data, 2) train the conformal estimators, and 3) test the conformal estimators (for linear and MLP SEMs respectively).
@@ -79,7 +80,7 @@ python proportion_flagging.py
 which will print the list of downstream accuracies and proportions of samples flagged.
 
 
-### Citing
+# 3. Citing
 If you use this software, please cite the original paper:
 ```shell
 @inproceedings{huynh2024dagnosis,
